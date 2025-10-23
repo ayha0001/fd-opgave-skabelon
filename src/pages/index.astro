@@ -1,8 +1,24 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
 import Hero from "@components/Hero.astro";
+import WhatToExpect from "@components/WhatToExpect.astro";
+import FinancialProjections from "@components/FinancialProjections.astro";
+import Experience from "@components/Experience.astro";
+import CoreValues from "@components/CoreValues.astro";
+import Contact from "@components/Contact.astro";
+import Newsletter from "@components/Newsletter.astro";
+import Footer from "@components/Footer.astro";
 ---
 
 <Layout>
+  <Header />
   <Hero />
+  <WhatToExpect imagePath='/src/data/images/photo2.jpg' altText='Our team working together' class='rounded-lg' width={634} height={395} />
+  <FinancialProjections />
+  <Experience />
+  <CoreValues surface='primary' />
+  <Contact />
+  <Newsletter />
+  <Footer />
 </Layout>

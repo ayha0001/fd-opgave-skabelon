@@ -4,27 +4,84 @@ import Services from "./Services.astro";
 import CEOImage from "@assets/images/ceo.png";
 ---
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Empowering Your Business Growth</h1>
-    <p>
-      Discover tailored strategies and expert insights to take your business to
-      the next level. Let us help you navigate challenges and achieve
-      sustainable success.
-    </p>
-    <a href="#0">Book a Meeting</a>
+<section>
+  <div class='hero'>
+    <div class='hero-content'>
+      <h1>Empowering Your Business Growth</h1>
+      <p>
+        Discover tailored strategies and expert insights to take your business to the next level. Let us help you navigate challenges and achieve
+        sustainable success.
+      </p>
+      <a href='#0' class='blackbtn'>Book a Meeting</a>
+    </div>
+    <Image src={CEOImage} alt='CEO' />
+    <div class='services'>
+      <Services />
+    </div>
   </div>
-  <Image src={CEOImage} alt="CEO" />
-
-  <Services />
 </section>
 
 <style>
   /* Styles her */
-  @layer components {
+  section {
+    color: var(--secondary02);
+  }
+
+  p {
+    color: var(--secondary02);
+    margin: 10px 0 20px;
+  }
+
+  a {
+    background-color: var(--secondary02);
+    color: var(--primary03);
+  }
+
+  a:hover {
+    background-color: var(--primary03);
+    color: var(--secondary02);
+    border-color: var(--secondary02);
+  }
+
+  .hero {
+    background-color: var(--primary03);
+  }
+
+  .hero-content {
+    padding: 30px 2rem;
+    text-align: center;
+  }
+
+  @media (min-width: 800px) {
+    section {
+      display: grid;
+      grid-template-columns: [full-start]1fr [content-start]minmax(0, 600px) [img-start]minmax(0, 600px) [content-end]1fr[img-end full-end];
+    }
+
+    h1 {
+      font-size: var(--heading01);
+    }
+
     .hero {
-      background-color: #f3f4f6;
-      padding: 2rem;
+      display: grid;
+      grid-column: full-start / full-end;
+      grid-template-columns: subgrid;
+      grid-template-rows: [img-start] auto [cards-start] 1fr [img-end] 1fr [cards-end];
+      align-items: center;
+    }
+
+    .hero img {
+      grid-area: img;
+    }
+
+    .hero-content {
+      grid-column: content-start/img-start;
+      padding: 3rem 50px 0 0;
+      text-align: left;
+    }
+    .services {
+      grid-column: content-start/content-end;
+      grid-row: cards-start/cards-end;
     }
   }
 </style>

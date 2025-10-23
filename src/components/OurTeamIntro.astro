@@ -1,0 +1,52 @@
+<section>
+  <div class='container-text'>
+    <div>
+      <small>OUR TEAM</small>
+      <h2>We champion the bold to achieve the extraordinary</h2>
+      <p>
+        Our success stems from the synergy between dedicated teams and our valued clients. We prioritize a company culture that fosters exceptional
+        productivity, ensures customer satisfaction, and promotes mutual respect among all team members.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  h2 {
+    font-size: var(--heading02);
+  }
+  section {
+    max-width: 1200px;
+    margin: 89px auto 20px;
+  }
+
+  .container-text small {
+    display: block;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .container-text {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    text-align: center;
+    place-items: center;
+    padding: 0 0 50px;
+  }
+
+  @media (min-width: 800px) {
+    .container-text {
+      grid-template-columns: 1fr 1fr;
+      justify-items: end; /* gør indhold kun så bredt som det skal være */
+      align-items: end; /* gør indhold kun så højt som det skal være */
+      text-align: left;
+      gap: 2rem;
+    }
+
+    .container-text small {
+      font-size: var(--default-body);
+    }
+  }
+</style>

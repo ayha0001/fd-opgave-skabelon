@@ -1,0 +1,41 @@
+<section>
+  <div class='container-text'>
+    <div>
+      <h2>Meet Our Great Team</h2>
+      <p>
+        Welcome to our amazing team! We are a group of passionate individuals dedicated to excellence and innovation. Each member brings unique skills
+        and experiences, working together to achieve our goals. Join us as we embark on exciting projects and create lasting impacts.
+      </p>
+    </div>
+    <a href='' class='blackbtn'>Join our team </a>
+  </div>
+</section>
+
+<style>
+  h2 {
+    font-size: var(--heading02);
+  }
+  section {
+    max-width: 1200px;
+    margin: 89px auto 20px;
+  }
+
+  .container-text {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    text-align: center;
+    place-items: center;
+    padding: 0 0 50px;
+  }
+
+  @media (min-width: 800px) {
+    .container-text {
+      grid-template-columns: 1fr 1fr;
+      justify-items: end; /* gør indhold kun så bredt som det skal være */
+      align-items: end; /* gør indhold kun så højt som det skal være */
+      text-align: left;
+      gap: 2rem;
+    }
+  }
+</style>

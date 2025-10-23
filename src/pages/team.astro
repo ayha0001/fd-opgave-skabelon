@@ -1,0 +1,56 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import HeroBgWrapper from "@components/helpers/HeroBgWrapper.astro";
+import MeetTeam from "@components/MeetTeam.astro";
+import team from "@data/employees.json";
+import TeamProfile from "@components/TeamProfile.astro";
+import Newsletter from "@components/Newsletter.astro";
+import Footer from "@components/Footer.astro";
+---
+
+<Layout>
+  <Header />
+  <HeroBgWrapper imagePath='hero1.jpg' class='hero'>
+    <header class=''>
+      <p>TEAM</p>
+      <h1>The Consultors</h1>
+    </header>
+  </HeroBgWrapper>
+  <MeetTeam />
+  <section>
+    {
+      team.map((member) => (
+        <TeamProfile
+          image={member.img}
+          alt={member.title}
+          job={member.title}
+          name={member.name}
+          bio={member.description}
+          social_links={member.social_links}
+        />
+      ))
+    }
+  </section>
+  <Newsletter />
+  <Footer />
+</Layout>
+
+<style>
+  section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+    align-items: stretch;
+    justify-items: center;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0 2rem;
+  }
+
+  @media (min-width: 800px) {
+    section {
+      padding: 0;
+    }
+  }
+</style>

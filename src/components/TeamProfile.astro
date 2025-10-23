@@ -1,0 +1,107 @@
+---
+// Importere SVG filer og behandler dem som astro komponenter
+import InstagramIcon from "@icons/instagram.svg";
+import FacebookIcon from "@icons/facebook.svg";
+import TwitterIcon from "@icons/twitter.svg";
+import { Image } from "astro:assets";
+
+// Props
+const { image, alt, job, name, bio, social_links = [] } = Astro.props;
+
+const IconMap = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  twitter: TwitterIcon,
+} as const;
+---
+
+<article>
+  <div>
+    <Image src={image} alt={alt} width={366} height={392} fit='cover' position='center' loading='lazy' />
+    <span>{job}</span>
+  </div>
+
+  <div>
+    <h5 class='name'>{name}</h5>
+    <p class='bio'>{bio}</p>
+    <nav class='social'>
+      {
+        social_links.map((link: { platform: "instagram" | "facebook" | "twitter"; url: string }) => {
+          const Icon = IconMap[link.platform];
+          if (!Icon) return null;
+
+          return (
+            <a href={link.url} target='_blank' rel='noopener noreferrer' aria-label={link.platform}>
+              <Icon class='icon' />
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</article>
+
+<style>
+  /* Laves til et grid  */
+  article {
+    display: grid;
+    grid-template-columns: 1fr; /* I mobil fylder den en kolonne */
+    grid-template-rows: auto 1fr auto; /* Griddet består af tre rækker */
+    gap: 15px;
+    margin-bottom: 30px;
+    height: 100%; /* Article skal fylde hele højden af sin container, sikre ensartet udseende, selvom indholdet varierer i størrelse */
+  }
+
+  article > div:first-child {
+    position: relative;
+    display: inline-block;
+  }
+
+  article:first-child > div:first-child span {
+    background: var(--primary01);
+    color: var(--primary03);
+  }
+
+  article img {
+    border-radius: 25px;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  article > div:first-child span {
+    position: absolute;
+    bottom: 22px;
+    right: 18px;
+    font-weight: 500;
+    background: var(--primary03);
+    color: var(--secondary02);
+    padding: 6px 15px;
+    border-radius: 20px;
+  }
+
+  nav {
+    display: flex;
+    place-content: center;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  nav a {
+    color: var(--primary03);
+  }
+
+  @media (min-width: 600px) {
+    article {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  article > div:last-child {
+    text-align: center;
+  }
+
+  h5 {
+    font-size: var(--heading05);
+  }
+</style>

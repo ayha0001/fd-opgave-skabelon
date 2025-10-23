@@ -1,0 +1,149 @@
+---
+// Henter data fra JSON-fil
+import data from "@data/experience.json";
+
+// (valgfrit) variabel til overskrift
+const sectionLabel = "EXPERIENCE";
+---
+
+<section class='experience'>
+  <div class='experience2'>
+    <div class='experience3'>
+      <small>{sectionLabel}</small>
+      <!-- Bliver udskiftet med teskten fra JSON filen  -->
+      <h2>{data.heading}</h2>
+      <!-- Bliver udskiftet med teskten fra JSON filen  -->
+      <p>{data.subheading}</p>
+    </div>
+
+    <div class='stats' role='list'>
+      {
+        // Looper gennem JSON filen
+        data.stats.map((item) => {
+          // Sørger for at værdien er mellem 0 og 100
+          const value = Math.max(0, Math.min(100, Number(item.value) || 0));
+          // For hver statistik, returneres en graf med tilhørende attributter
+          return (
+            <div
+              class='stat'
+              role='listitem'
+              aria-label={item.label}
+              aria-valuemin='0'
+              aria-valuemax='100'
+              aria-valuenow={value}
+              style={`--percent:${value}`}
+            />
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  p {
+    color: var(--primary03);
+  }
+
+  /* Styling af den yderste container */
+  .experience {
+    background-color: var(--primary01);
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 30px 2rem;
+  }
+
+  /* Styling af den indre container, der indeholder tekst og graferne */
+  .experience2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  /* Styling af tekstsektionen */
+  .experience3 small {
+    display: block;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  @media (min-width: 800px) {
+    h2 {
+      font-size: var(--heading02);
+    }
+    .experience {
+      padding: 89px 0;
+    }
+    .experience2 {
+      grid-template-columns: 1fr 1.5fr;
+    }
+
+    .experience3 small {
+      font-size: var(--body-default);
+    }
+  }
+
+  /* Her ligger alle de individuelle cirkler */
+  .stats {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+  }
+
+  /* Her defineres udseende af hver cirkel ved at definere variabler og baggrunde */
+  .stat {
+    --size: clamp(70px, 18vw, 160px);
+    --border-width: 5px;
+    --actualPercent: calc(var(--percent) * 1%);
+
+    width: var(--size);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    border: var(--border-width) solid transparent;
+    background:
+      conic-gradient(var(--primary01)) padding-box,
+      conic-gradient(var(--secondary02) var(--actualPercent), #daae3c 0) border-box;
+
+    display: grid;
+    container: stat / inline-size;
+
+    counter-reset: c var(--percent);
+    position: relative; /* for before/after */
+  }
+
+  /* Visning af procenttallet i midten */
+  .stat::after {
+    content: counter(c, decimal-leading-zero) "%";
+    grid-area: 1 / 1;
+    place-self: center;
+    font-family: cabin, system-ui, Arial, sans-serif;
+    font-size: 30cqw;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Knappen på ringen */
+  .stat::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* så offset-path har en boks */
+    aspect-ratio: 1;
+    width: 25px;
+    height: 25px;
+    border-radius: 99px;
+    background: var(--primary03);
+    border: 5px solid var(--secondary02);
+
+    /* bevæg prikket langs ringen */
+    offset-path: border-box;
+    offset-distance: var(--actualPercent);
+    offset-anchor: 50% calc(50% - var(--border-width) / 2);
+  }
+</style>

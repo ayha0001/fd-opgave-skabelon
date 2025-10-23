@@ -1,0 +1,196 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+const { imagePath, altText, class: className, width, height } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/data/images/*.{jpeg,jpg,png,gif,webp}");
+
+if (!images[imagePath]) {
+  throw new Error(`"${imagePath}" does not exist in glob`);
+}
+
+const mod = await images[imagePath]();
+---
+
+<section>
+  <div class='container'>
+    <div class='text-section'>
+      <small>OUR VISION</small>
+      <h2>Turn your ideas into reality.</h2>
+      <p>
+        Capitalize on low hanging fruit to identify a ballpark value added activity beta test. Override the digital divide with additional from
+        DevOps.
+      </p>
+
+      <ul>
+        <li>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day.</li>
+        <li>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test override the digital.</li>
+      </ul>
+    </div>
+    <figure>
+      <Image src={mod.default} alt={altText} class={className} width={width} height={height} />
+    </figure>
+  </div>
+  <dl>
+    <div>
+      <dt>Successful Work</dt>
+      <dd>1128+</dd>
+    </div>
+    <div>
+      <dt>Team member</dt>
+      <dd>908+</dd>
+    </div>
+    <div>
+      <dt>Happy customers</dt>
+      <dd>258+</dd>
+    </div>
+    <div>
+      <dt>Creative Idea</dt>
+      <dd>564+</dd>
+    </div>
+  </dl>
+</section>
+
+<style>
+  :root {
+    --square-pattern: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M7.47662 4.02206C6.50635 3.05178 5.53232 2.07774 4.56205 1.10745C4.28482 0.83023 3.80905 0.83023 3.53183 1.10745C2.56155 2.07774 1.59128 3.04803 0.621002 4.02206C0.343781 4.29929 0.343781 4.77506 0.621002 5.05229C1.59128 6.02258 2.5653 6.99661 3.53558 7.9669C3.8128 8.24412 4.28857 8.24412 4.56579 7.9669C5.53607 6.99661 6.51009 6.02258 7.48037 5.05229C7.63022 4.90244 7.69016 4.73011 7.69016 4.56527C7.69016 4.55403 7.69016 4.54654 7.69016 4.5353C7.69016 4.52781 7.69016 4.51657 7.69016 4.50908C7.69016 4.34424 7.63022 4.17191 7.47662 4.02206ZM4.04881 6.41968C3.41944 5.79031 2.79382 5.16468 2.16445 4.5353C2.79382 3.90593 3.41944 3.2803 4.04881 2.65092C4.67818 3.2803 5.3038 3.90593 5.93317 4.5353C5.3038 5.16468 4.67818 5.79031 4.04881 6.41968Z"/></svg>');
+  }
+
+  figure {
+    position: relative;
+
+    &::before {
+      --square-count: 11;
+      --square-size: 1.34rem;
+
+      --_square-size: var(--square-size, 1rem);
+      --_square-half: calc(var(--square-size) / 2);
+      --_square-sum: calc(var(--square-count) * var(--square-size));
+      z-index: -1;
+      content: "";
+      position: absolute;
+      inset: -10px -60px auto auto;
+      /*inline-size: calc(var(--square-count) * 1.34rem - .67rem);*/
+      inline-size: calc(round(var(--_square-sum), var(--_square-size)) - var(--_square-half));
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #be965d, #976f40, #c99b61, #f0be7b, #ffcb85, #eebc79, #c0935b, #976f40) 0 0 / 100% 100%;
+      mask:
+        var(--square-pattern) 0 0 / var(--_square-size) var(--_square-size),
+        var(--square-pattern) var(--_square-half) var(--_square-half) / var(--_square-size) var(--_square-size);
+      /*clip-path: polygon(-3% 0%, 100% 0%, 100% 103%);*/
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 450px;
+      bottom: 250px;
+      background: var(--primary02);
+      width: 150px;
+      height: 120px;
+      border-radius: 20px;
+      z-index: -1;
+    }
+  }
+
+  img {
+    width: 500px;
+    place-self: end;
+    margin-top: 50px;
+    border-radius: 20px;
+  }
+
+  small {
+    display: block;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin: 15px 0;
+  }
+
+  section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 2rem 89px;
+  }
+
+  dl {
+    margin: 3rem;
+    text-align: center;
+    display: grid;
+    gap: 30px;
+  }
+  dl > * {
+    display: flex;
+    flex-direction: column-reverse;
+    color: #181818;
+    font-size: 16px;
+  }
+
+  dl > * :last-child {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  @media (min-width: 800px) {
+    h2 {
+      font-size: var(--heading02);
+      margin-bottom: 10px;
+    }
+
+    small {
+      font-size: var(--body-default);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    section {
+      padding: 89px 0;
+    }
+
+    dl {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+    }
+
+    dl > * {
+      font-size: 18px;
+    }
+
+    dl > * :last-child {
+      font-size: 50px;
+      font-weight: 600;
+    }
+  }
+
+  :root {
+    --checkmark-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="%234EAF4E" d="M176.49 95.51a12 12 0 0 1 0 17l-56 56a12 12 0 0 1-17 0l-24-24a12 12 0 1 1 17-17L112 143l47.51-47.52a12 12 0 0 1 16.98.03M236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108m-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84"/></svg>');
+  }
+
+  ul {
+    display: grid;
+    gap: 1rem;
+    line-height: 1.5;
+    padding: 0;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    font-size: 1rem;
+    color: var(--text-color);
+    max-width: 43ch;
+  }
+
+  li:before {
+    content: "";
+    width: 1.6rem;
+    height: 1lh;
+    background: var(--checkmark-icon) 50% 50% / 100% auto no-repeat;
+  }
+</style>
