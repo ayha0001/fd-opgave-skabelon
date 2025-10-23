@@ -33,6 +33,9 @@
 
   --btn-hover-bg: var(--primary03); /* sort */
   --btn-hover-fg: var(--secondary02); /* hvid */
+
+  --a-link: var(--primary03);
+  --p-text: var(--primary03);
 }
 
 [data-surface="secondary"] {
@@ -47,6 +50,9 @@
 
   --btn-hover-bg: var(--secondary02); /* hvid */
   --btn-hover-fg: var(--primary03); /* sort */
+
+  --a-link: var(--primary03);
+  --p-text: var(--primary03);
 }
 
 h1 {
